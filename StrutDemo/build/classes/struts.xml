@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+	
+	<struts>
+	<package name = "struts" extends = "struts-default">
+	<!-- 
+	<interceptors>
+	<interceptor name="CustomInterceptor" class="com.bv.interceptor.CustomInterceptor">
+	</interceptor>
+	<interceptor name="SecondInterceptor" class="com.bv.interceptor.SecondInterceptor"/>
+	</interceptors> -->
+	
+	
+	<interceptors>
+	
+	<interceptor-stack name="mystack">
+	<interceptor-ref name="CustomInterceptor"/>
+	<interceptor-ref name="SecondInterceptor"/>
+	<interceptor-ref name="defaultStack"/>
+	<interceptor-ref name="params"/>
+	<interceptor-ref name="logger"/>
+	<interceptor-ref name="timer"/>
+	</interceptor-stack>
+	
+	<interceptor name="CustomInterceptor" class="com.bv.interceptor.CustomInterceptor">
+	</interceptor>
+	<interceptor name="SecondInterceptor" class="com.bv.interceptor.SecondInterceptor"/>
+	
+	</interceptors>
+	
+	<action name = "go" class = "com.bv.model.Registration">
+	<interceptor-ref name="mystack"/>
+	<interceptor-ref name="fileUpload">
+	<param name="allowedTypes">image/jpeg</param>
+	
+	</interceptor-ref>
+	
+	<result>success.jsp</result>
+	<result name="input">registration.jsp</result>
+	</action>
+	
+	
+	<action name = "error" class = "com.bv.model.Registration">
+	<interceptor-ref name="mystack"/>
+	<result>error.html</result>
+	</action>
+	
+	
+	
+	</package>
+	</struts>
